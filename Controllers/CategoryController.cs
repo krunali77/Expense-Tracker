@@ -26,38 +26,15 @@ namespace Expense_Tracker.Controllers
                           Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
         }
 
-        // GET: Category/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Categories == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
-        }
-
+        
         // GET: Category/CreateorEdit
         public IActionResult CreateorEdit(int id=0)
         {
             if (id == 0)
-            {
-                return View(new Category()); 
-            }
-            // Editing an existing category
-            var category = _context.Categories.Find(id);
-            if (category == null)
-            {
-                return NotFound(); // Handle the case where the category with the given ID doesn't exist.
-            }
-            return View(category);
+                return View(new Category());
+            else
+                return View(_context.Categories.Find(id));
+
         }
 
         // POST: Category/Create
@@ -71,40 +48,18 @@ namespace Expense_Tracker.Controllers
             if (ModelState.IsValid)
             {
                 if (category.CategoryId == 0)
-                {
-                    // Creating a new category
                     _context.Add(category);
-                }
                 else
-                {
-                    // Editing an existing category
-                    _context.Entry(category).State = EntityState.Modified;
-                }
-
+                    _context.Update(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
+
         }
 
 
-        // GET: Category/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Categories == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
-        }
+        
 
         // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
