@@ -10,7 +10,7 @@ var app = builder.Build();
 
 
 //Register Syncfusion license
-Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF5cXmVCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWH5edHRUQmJeWUx/XEA=");
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("your key");
 
 
 
